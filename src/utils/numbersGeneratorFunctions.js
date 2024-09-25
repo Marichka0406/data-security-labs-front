@@ -2,8 +2,14 @@ import { saveAs } from "file-saver";
 import { toast } from "react-toastify";
 
 export const validateInputs = (m, a, c, x0) => {
+  const MAX_INT_32 = 2147483647;
+
   if (m <= 0) {
     toast.error("Modulus (m) must be greater than 0.");
+    return false;
+  }
+  if (m > MAX_INT_32) {
+    toast.error(`Modulus (m) must be less than or equal to ${MAX_INT_32}.`);
     return false;
   }
   if (a < 0 || a >= m) {
