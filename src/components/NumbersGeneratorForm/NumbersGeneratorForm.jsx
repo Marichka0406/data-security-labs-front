@@ -1,11 +1,8 @@
 import { useState } from "react";
 import { TextField, Button, Typography, Box } from "@mui/material";
-import {
-  saveToFile,
-  generateNumbers,
-  calculatePeriod,
-} from "../../utils/numbersGeneratorFunctions";
+import { saveToFile, generateNumbers, calculatePeriod, validateInputs } from "../../utils/numbersGeneratorFunctions";
 import { styles } from "./NumbersGeneratorForm.styles";
+import { toast } from "react-toastify";
 
 const NumbersGeneratorForm = () => {
   const [m, setM] = useState(0);
@@ -14,7 +11,7 @@ const NumbersGeneratorForm = () => {
   const [x0, setX0] = useState(0);
   const [count, setCount] = useState(0);
   const [results, setResults] = useState([]);
-  const [period, setPeriod] = useState(0); // State for period
+  const [period, setPeriod] = useState(0);
 
   const handleGenerate = () => {
     setResults([]);
@@ -25,34 +22,32 @@ const NumbersGeneratorForm = () => {
     const x0Value = parseInt(x0);
     const countValue = parseInt(count);
 
-    const generatedNumbers = generateNumbers(
-      mValue,
-      aValue,
-      cValue,
-      x0Value,
-      countValue
-    );
+    if (!validateInputs(mValue, aValue, cValue, x0Value)) {
+      return;  
+    }
+
+    const generatedNumbers = generateNumbers(mValue, aValue, cValue, x0Value, countValue);
     setResults(generatedNumbers);
 
-    // Calculate period
     const calculatedPeriod = calculatePeriod(generatedNumbers);
     setPeriod(calculatedPeriod);
+
+    toast.success("Numbers generated successfully!");
   };
 
   const handleSave = () => {
     if (results.length > 0) {
       saveToFile(results);
+      toast.success("Results saved to file successfully!");
     } else {
-      alert("No results to save.");
+      toast.error("No results to save.");
     }
   };
 
   return (
     <Box sx={styles.formWrapper}>
       <Box sx={styles.formContainer}>
-        <Typography variant="h4" sx={styles.title}>
-          Random Numbers Generator
-        </Typography>
+        <Typography variant="h4" sx={styles.title}>Random Numbers Generator</Typography>
         <TextField
           label="Modulus (m)"
           variant="outlined"
@@ -103,42 +98,22 @@ const NumbersGeneratorForm = () => {
           margin="normal"
           sx={styles.input}
         />
-        <Typography variant="h6" sx={styles.subtitle}>
-          Results:
-        </Typography>
+        <Typography variant="h6" sx={styles.subtitle}>Results:</Typography>
         <TextField
           label="Generated Numbers"
           variant="outlined"
           value={results.join(", ")}
           fullWidth
           margin="normal"
-          InputProps={{
-            readOnly: true,
-          }}
+          InputProps={{ readOnly: true }}
           multiline
           rows={4}
           sx={styles.textField}
         />
-        <Typography variant="h6" sx={styles.subtitle}>
-          Period: {period}
-        </Typography>
+        <Typography variant="h6" sx={styles.subtitle}>Period: {period}</Typography>
         <Box sx={styles.buttons}>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={handleGenerate}
-            sx={styles.button}
-          >
-            Generate
-          </Button>
-          <Button
-            variant="outlined"
-            color="secondary"
-            onClick={handleSave}
-            sx={{ ...styles.button, marginLeft: "10px" }}
-          >
-            Save to File
-          </Button>
+          <Button variant="contained" color="primary" onClick={handleGenerate} sx={styles.button}>Generate</Button>
+          <Button variant="outlined" color="secondary" onClick={handleSave} sx={{ ...styles.button, marginLeft: "10px" }}>Save to File</Button>
         </Box>
       </Box>
     </Box>

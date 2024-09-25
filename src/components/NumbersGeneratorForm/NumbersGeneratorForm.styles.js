@@ -28,6 +28,7 @@ export const styles = {
     WebkitTextFillColor: "transparent",
   },
   subtitle: {
+    textAlign: "center",
     fontFamily: "Montserrat",
     fontSize: "20px",
     color: "#1565C0",

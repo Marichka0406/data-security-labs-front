@@ -1,12 +1,15 @@
-import './App.css';
-import NumbersGeneratorForm from './components/NumbersGeneratorForm/NumbersGeneratorForm';
+import "./App.css";
+import NumbersGeneratorForm from "./components/NumbersGeneratorForm/NumbersGeneratorForm";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
   return (
-    <div className="App">
-      < NumbersGeneratorForm />
-    </div>
+    <>
+      <NumbersGeneratorForm />
+      <ToastContainer />
+    </>
   );
-}
+};
 
 export default App;

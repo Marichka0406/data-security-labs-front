@@ -1,4 +1,25 @@
 import { saveAs } from "file-saver";
+import { toast } from "react-toastify";
+
+export const validateInputs = (m, a, c, x0) => {
+  if (m <= 0) {
+    toast.error("Modulus (m) must be greater than 0.");
+    return false;
+  }
+  if (a < 0 || a >= m) {
+    toast.error("Multiplier (a) must be between 0 and less than m.");
+    return false;
+  }
+  if (c < 0 || c >= m) {
+    toast.error("Increment (c) must be between 0 and less than m.");
+    return false;
+  }
+  if (x0 < 0 || x0 >= m) {
+    toast.error("Initial Value (X0) must be between 0 and less than m.");
+    return false;
+  }
+  return true;
+};
 
 export const generateNumbers = (m, a, c, x0, count) => {
   let x = x0;
