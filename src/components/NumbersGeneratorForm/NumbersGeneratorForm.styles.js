@@ -10,6 +10,8 @@ export const styles = {
     p: "20px",
     maxWidth: "550px",
     m: "auto",
+    mt: "8px",
+    mb: "8px",
     backgroundColor: "#BBDEFB",
     boxShadow: "0px 4px 20px rgba(0, 0, 0, 0.7)",
     borderRadius: "14px",
