@@ -5,6 +5,9 @@ export const styles = {
     justifyContent: "center",
     alignItems: "center",
     background: "linear-gradient(to right, #0D47A1, #1976D2, #64B5F6)",
+    minHeight: "100vh",
+    paddingBottom: "0px", 
+    boxSizing: "border-box", 
   },
   formContainer: {
     p: "20px",
@@ -115,7 +118,8 @@ export const styles = {
     display: "flex",
   },
   button: {
-    mt: "5px",
+    mt: "10px",
+    mb: "10px",
     width: "100%",
     background: "linear-gradient(to right, #0D47A1, #1976D2, #64B5F6)", // Blue gradient
     color: "#fff",
